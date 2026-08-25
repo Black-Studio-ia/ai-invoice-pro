@@ -1,14 +1,31 @@
 # AI Invoice Pro
 
-**AI-Powered Invoice Generator for Cross-Border E-commerce**
+**Professional Invoice Generator for Cross-Border E-commerce**
 
 Generate professional PDF invoices in seconds. Built for sellers on Shopify, Amazon, AliExpress, eBay, and more.
 
-![Invoice Demo](https://img.shields.io/badge/PDF-Generation-success) ![License](https://img.shields.io/badge/License-MIT-blue)
+![PDF](https://img.shields.io/badge/PDF-Generation-success) ![License](https://img.shields.io/badge/License-MIT-blue) ![Python](https://img.shields.io/badge/Python-3.8+-green)
 
 ---
 
-## 🚀 Quick Start
+## 📦 Versions
+
+| Feature | Free (GitHub) | Pro ($29.99) |
+|---------|---------------|--------------|
+| PDF Generation | ✅ | ✅ |
+| HTML Invoices | ✅ | ✅ |
+| Multi-Currency | ✅ | ✅ |
+| Basic Templates | 3 | 10+ |
+| Shopify API | ❌ | ✅ |
+| Amazon API | ❌ | ✅ |
+| WooCommerce API | ❌ | ✅ |
+| Bulk Generation | ❌ | ✅ |
+| Custom Templates | ❌ | ✅ |
+| Priority Support | ❌ | ✅ |
+
+---
+
+## 🚀 Free Version (GitHub)
 
 ### Installation
 
@@ -18,7 +35,7 @@ cd ai-invoice-pro
 pip install -r requirements.txt
 ```
 
-### Basic Usage
+### Quick Start
 
 ```python
 from generator import InvoiceGenerator
@@ -26,17 +43,16 @@ from generator import InvoiceGenerator
 # Create invoice
 inv = InvoiceGenerator()
 
-# Set your company info
+# Your company
 inv.set_company(
-    name="Your Company Name",
+    name="Your Company",
     email="you@company.com",
-    address="123 Business St, City, Country",
-    phone="+1 234 567 8900"
+    address="123 Business St, City, Country"
 )
 
-# Set client info
+# Your client
 inv.set_client(
-    name="Client Company",
+    name="Client Name",
     email="client@email.com",
     address="456 Client Ave, City, Country"
 )
@@ -44,9 +60,8 @@ inv.set_client(
 # Add items
 inv.add_item("Product A", 2, 99.99)
 inv.add_item("Service B", 1, 199.99)
-inv.add_item("Shipping", 1, 15.00)
 
-# Generate & Save
+# Generate
 result = inv.save()
 print(f"Invoice saved: {result}")
 ```
@@ -57,109 +72,111 @@ print(f"Invoice saved: {result}")
 python generator.py
 ```
 
-This creates a sample invoice in the `invoices/` folder.
-
 ---
 
-## 📖 Full Documentation
+## 💰 Pro Version ($29.99)
 
-### InvoiceGenerator Class
+**Get the full version with API integrations:**
 
-#### Company & Client
+- 🔌 **Shopify Integration** - Auto-generate invoices for orders
+- 📦 **Amazon Integration** - FBA invoice automation
+- 🛒 **WooCommerce Integration** - WordPress e-commerce
+- 📊 **Bulk Generation** - Generate 1000+ invoices at once
+- 🎨 **Custom Templates** - Your branding, your style
+- 📧 **Priority Support** - Direct email support
+
+### How to Purchase
+
+1. **Pay $29.99 USDT (TRC-20)**
+2. **Email:** ia.creative.tn@gmail.com
+3. **Receive:** License key + Pro code + Documentation
+
+### Pro API Usage
 
 ```python
-inv.set_company(name, email, address, phone="", logo="")
-inv.set_client(name, email, address, phone="")
-```
+from ai_invoice_pro import ShopifyIntegration, AmazonIntegration
 
-#### Invoice Details
+# Shopify
+shopify = ShopifyIntegration(
+    shop_url="your-store.myshopify.com",
+    api_key="your-api-key"
+)
 
-```python
-inv.set_invoice(
-    number="INV-001",        # Invoice number
-    date="2026-01-01",       # Issue date (default: today)
-    due_date="2026-02-01",   # Due date
-    notes="Payment terms",   # Notes
-    currency="USD"           # Currency code
+# Auto-generate invoice for order
+invoice = shopify.generate_invoice(order_id="12345")
+invoice.save()
+
+# Amazon
+amazon = AmazonIntegration(
+    seller_id="YOUR_SELLER_ID",
+    auth_token="YOUR_AUTH_TOKEN"
+)
+
+# Bulk generate invoices
+invoices = amazon.bulk_generate(
+    start_date="2026-01-01",
+    end_date="2026-01-31"
 )
 ```
 
-#### Add Items
-
-```python
-inv.add_item(description, quantity, price)
-```
-
-#### Get Totals
-
-```python
-inv.get_total()                    # Subtotal
-inv.get_tax(rate=10)              # Tax amount
-inv.get_grand_total(tax_rate=10)   # Total with tax
-```
-
-#### Generate Output
-
-```python
-inv.generate_html()           # Returns HTML string
-inv.generate_pdf("file.pdf")  # Save as PDF
-inv.save()                    # Save both HTML and PDF
-```
-
 ---
 
-## 🌐 Web App (Flask)
+## 📖 Documentation
 
-Run the web interface:
+### InvoiceGenerator Class
 
-```bash
-python app.py
+```python
+# Initialize
+inv = InvoiceGenerator()
+
+# Company info
+inv.set_company(name, email, address, phone="", logo="")
+
+# Client info  
+inv.set_client(name, email, address, phone="")
+
+# Invoice details
+inv.set_invoice(number, date="", due_date="", notes="", currency="USD")
+
+# Add items
+inv.add_item(description, quantity, price)
+
+# Get totals
+inv.get_total()                    # Subtotal
+inv.get_tax(rate=10)              # Tax amount
+inv.get_grand_total(tax_rate=10)  # Total with tax
+
+# Generate
+inv.generate_html()           # Returns HTML string
+inv.generate_pdf("file.pdf")  # Save as PDF
+inv.save()                    # Save both to invoices/ folder
 ```
-
-Open `http://localhost:5000` in your browser.
 
 ---
 
 ## 💡 Use Cases
 
-- **E-commerce sellers** - Generate invoices for orders
-- **Freelancers** - Bill clients professionally
+- **E-commerce sellers** - Generate invoices for every order
+- **Freelancers** - Bill clients professionally  
 - **Dropshipping** - Automate invoice creation
 - **SaaS companies** - Recurring billing invoices
+- **Cross-border trade** - Multi-currency support
 
 ---
 
-## 💰 Pricing & Support
+## 📞 Contact & Purchase
 
-This is the **open-source version** (free, MIT License).
-
-**Need more features?**
-
-| Feature | Free | Pro |
-|---------|------|-----|
-| PDF Generation | ✅ | ✅ |
-| HTML Invoices | ✅ | ✅ |
-| Multi-Currency | ✅ | ✅ |
-| Bulk Generation | ❌ | ✅ |
-| API Access | ❌ | ✅ |
-| Custom Templates | ❌ | ✅ |
-| Priority Support | ❌ | ✅ |
-
-**Contact for Pro version:**
-- 📧 Email: ia.creative.tn@gmail.com
+- 📧 **Email:** ia.creative.tn@gmail.com
+- 💰 **Payment:** USDT (TRC-20) only
+- 💬 **Support:** Included with Pro version
 
 ---
 
 ## 📜 License
 
-MIT License - Free for personal and commercial use.
+- **Free version:** MIT License (personal use)
+- **Pro version:** Commercial license (after purchase)
 
 ---
 
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, open an issue first.
-
----
-
-**Made with ❤️ by Black Studio**
+**© 2026 Black Studio**
