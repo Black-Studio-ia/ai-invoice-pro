@@ -1,28 +1,22 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify
 from generator import InvoiceGenerator
-import os
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def index():
-    return app.send_static_file('index.html')
+    return {"status": "AI Invoice Pro API", "version": "1.0"}
 
-@app.route('/api/generate', methods=['POST'])
-def generate_invoice():
+@app.route("/api/generate", methods=["POST"])
+def generate():
     data = request.json
-    
     inv = InvoiceGenerator()
-    
-    inv.set_company(**data.get('company', {}))
-    inv.set_client(**data.get('client', {}))
-    inv.set_invoice(**data.get('invoice', {}))
-    
-    for item in data.get('items', []):
+    inv.set_company(**data.get("company", {}))
+    inv.set_client(**data.get("client", {}))
+    inv.set_invoice(**data.get("invoice", {}))
+    for item in data.get("items", []):
         inv.add_item(**item)
-    
-    result = inv.save()
-    return jsonify(result)
+    return jsonify(inv.save())
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+if __name__ == "__main__":
+    app.run(debug=True)
